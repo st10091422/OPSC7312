@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="groupStyledeep_orange_400">
+        <item name="android:background">@drawable/rectangle_bg_deep_orange_400</item>
+    </style>
+
+    <style name="groupStylewhite_A700cornerRadius">
+        <item name="android:background">@drawable/rectangle_bg_white_a700_radius_tl_70_tr_70</item>
+
+    </style>
+
+    <style name="txtPoppinssemibold30">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/white_A700</item>
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textFontWeight" tools:targetApi="p">600</item>
+
+    </style>
+
+    <style name="txtPoppinsmedium15">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/blue_gray_900_01</item>
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textFontWeight" tools:targetApi="p">500</item>
+    </style>
+
+    <style name="etSolidRounded">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/blue_gray_900_83</item>
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+        <item name="android:background">@drawable/rectangle_bg_red_50_radius_18</item>
+
+    </style>
+
+    <style name="btnSolidRounded">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white_A700</item>
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textFontWeight" tools:targetApi="p">600</item>
+        <item name="android:background">@drawable/rectangle_bg_deep_orange_400_radius_22</item>
+
+    </style>
+
+    <style name="btnSolidRounded_1">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/teal_900</item>
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textFontWeight" tools:targetApi="p">600</item>
+        <item name="android:background">@drawable/rectangle_bg_deep_orange_50_radius_22</item>
+    </style>
+
+    <style name="txtPoppinssemibold14"></style>
+</resources>

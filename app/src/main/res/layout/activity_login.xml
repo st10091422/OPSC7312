@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.LoginActivity"
+    android:orientation="vertical"
+    style="@style/groupStyledeep_orange_400"
+    >
+
+    <TextView
+        android:id="@+id/txtWelcome"
+        style="@style/txtPoppinssemibold30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="56dp"
+        android:ellipsize="end"
+        android:lineSpacingExtra="15dp"
+        android:singleLine="true"
+        android:text="@string/welcome"
+        tools:text="@string/welcome"
+        android:layout_marginBottom="20dp"/>
+
+    <LinearLayout
+        android:id="@+id/linearColumnusernameo"
+        style="@style/groupStylewhite_A700cornerRadius"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="1dp"
+        android:orientation="vertical"
+        android:paddingStart="36dp"
+        android:paddingTop="89dp"
+        android:paddingEnd="36dp"
+        android:paddingBottom="20dp">
+        <TextView
+            android:id="@+id/txtUsernameor"
+            style="@style/txtPoppinsmedium15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="16dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/msg_username_or_email"
+            tools:text="@string/msg_username_or_email" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            style="@style/etSolidRounded"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rectangle_bg_red_50_radius_18"
+            android:ellipsize="end"
+            android:hint="@string/enter_email"
+            android:inputType="text"
+            android:lineSpacingExtra="8dp"
+            android:paddingStart="30dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="30dp"
+            android:paddingBottom="8dp"
+            android:singleLine="true"
+            android:textColorHint="@color/blue_gray_900_83"
+            tools:ignore="Autofill" />
+
+        <LinearLayout
+            android:id="@+id/linearColumnpassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            android:gravity="start"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtPassword"
+                style="@style/txtPoppinsmedium15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@string/password"
+                tools:text="@string/password" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etPassword"
+                style="@style/etSolidRounded"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/rectangle_bg_red_50_radius_18"
+                android:ellipsize="end"
+                android:hint="@string/enter_password"
+                android:lineSpacingExtra="8dp"
+                android:paddingStart="30dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="30dp"
+                android:paddingBottom="8dp"
+                android:singleLine="true"
+                android:inputType="textPassword"
+                android:textColorHint="@color/blue_gray_900_83"
+                tools:ignore="Autofill" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnLogIn"
+            style="@style/btnSolidRounded"
+            android:layout_width="207dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="91dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lineSpacingExtra="10dp"
+            android:paddingStart="30dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="30dp"
+            android:paddingBottom="5dp"
+            android:singleLine="true"
+            android:text="@string/lbl_log_in"
+            android:textAllCaps="false"
+            tools:text="@string/lbl_log_in" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnGoogle"
+            style="@style/btnSolidRounded_1"
+            android:layout_width="207dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="13dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lineSpacingExtra="10dp"
+            android:paddingStart="30dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="30dp"
+            android:paddingBottom="6dp"
+            android:singleLine="true"
+            android:text="@string/lbl_sign_up"
+            android:textAllCaps="false"
+            tools:text="@string/google" />
+
+        <TextView
+            android:id="@+id/redirectRegister"
+            style="@style/txtPoppinsmedium15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/redirect_to_sign_up"
+            tools:text="@string/redirect_to_sign_up" />
+
+    </LinearLayout>
+</LinearLayout>

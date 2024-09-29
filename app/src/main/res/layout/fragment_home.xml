@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.HomeFragment"
+    android:orientation="vertical"
+    style="@style/groupStyledeep_orange_400"
+    >
+
+    <LinearLayout
+        android:id="@+id/linearColumnusernameo"
+        style="@style/groupStylewhite_A700cornerRadius"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="53dp"
+        android:orientation="vertical"
+        android:paddingStart="36dp"
+        android:paddingTop="89dp"
+        android:paddingEnd="36dp"
+        android:paddingBottom="89dp">
+
+    </LinearLayout>
+</LinearLayout>

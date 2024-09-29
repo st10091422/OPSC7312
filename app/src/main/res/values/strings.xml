@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">OPSC7312</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome">Welcome</string>
+    <string name="msg_username_or_email">Email</string>
+    <string name="enter_email">enter email</string>
+    <string name="password">Password</string>
+    <string name="enter_password">enter password</string>
+    <string name="lbl_log_in">Login</string>
+    <string name="lbl_sign_up">Sign up</string>
+    <string name="google">Google</string>
+    <string name="redirect_to_sign_up">Dont have an account? Sigh up</string>
+    <string name="create_account">Create new account</string>
+    <string name="enter_username">Username</string>
+    <string name="redirect_to_sign_in">Already have an account? Login</string>
+    <string name="lbl_categories">Categories</string>
+    <string name="lbl_trabsaction">Transactions</string>
+    <string name="add_text">add transaction</string>
+    <string name="lbl_settings">Settings</string>
+    <string name="default_web_client_id">878297246219-se7deh08vfdhofk7bdkc7viag9ubqjkc.apps.googleusercontent.com</string>
+    <string name="lbl_save">Save</string>
+    <string name="cancel_lbl">Cancel</string>
+    <string name="lbl_new_category">New Category</string>
+    <string name="lbl_cat_name">write...</string>
+    <string name="choose_icon">Choose Icon</string>
+</resources>

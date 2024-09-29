@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="deep_orange_50">#ffe7e7</color>
+    <color name="blue_A700">#0068ff</color>
+    <color name="blue_500">#3299ff</color>
+    <color name="gray_900">#052224</color>
+    <color name="red_500">#ff4a3f</color>
+    <color name="deep_orange_400_88">#88ff8d3c</color>
+    <color name="green_50">#dff7e2</color>
+    <color name="blue_50">#e9f6fe</color>
+    <color name="red_50">#fff4ec</color>
+    <color name="teal_900_83">#830e3e3e</color>
+    <color name="gray_900_7f">#7f1e1e1e</color>
+    <color name="yellow_900">#ff8e26</color>
+    <color name="teal_900">#0e3e3e</color>
+    <color name="blue_300">#6cb5fd</color>
+    <color name="blue_gray_900_01">#093030</color>
+    <color name="blue_gray_900">#363130</color>
+    <color name="deep_orange_400">#ff8d3c</color>
+    <color name="white_A700">#ffffff</color>
+    <color name="blue_gray_900_83">#83093030</color>
+    <color name="teal_900_87">#870e3e3e</color>
+</resources>
