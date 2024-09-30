@@ -41,4 +41,5 @@
     <string name="lbl_category">Category</string>
     <string name="lbl_date_hint">dd/MM/yyyy</string>
     <string name="lbl_update_transaction">Transation</string>
+    <string name="lbl_home">Home</string>
 </resources>

@@ -54,6 +54,4 @@ class GetCategoriesObserver(
 
         Log.d("Category", "Category retrieved: ${value.size}\n $value")
     }
-
-
 }
