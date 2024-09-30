@@ -4,8 +4,11 @@ Savr - Personal Finance Management App
 
 ## SAVR TEAM
 Thato Sebelemetja ST10067544
+
 Nakeisha Naidoo ST10054051
+
 Jashil Roopnarain ST10092261
+
 Malik Fahad Mannan ST10091422
 
 ## YouTube Video demonstration video
