@@ -12,7 +12,7 @@ import retrofit2.Response
 
 class TransactionViewModel:ViewModel() {
     // Instance of the API service used to communicate with the backend for transaction-related operations
-    private var api: TransactionService = retrofitclient.createService()
+    var api: TransactionService = retrofitclient.createService()
 
     // LiveData object used to monitor the status of transaction operations (true if successful, false otherwise)
     val status: MutableLiveData<Boolean> = MutableLiveData()
@@ -32,9 +32,7 @@ class TransactionViewModel:ViewModel() {
     fun getAllTransactions(id: String) {
         val call = api.getTransactions(id)  // API call to fetch the user's transactions
 
-        // Log the request URL for debugging purposes
-        val url = call.request().url.toString()
-        Log.d("MainActivity", "Request URL: $url")
+
 
         // Execute the API call asynchronously
         call.enqueue(object : Callback<List<Transaction>> {
@@ -48,7 +46,6 @@ class TransactionViewModel:ViewModel() {
                         transactionList.postValue(it)
                         status.postValue(true)  // Mark the operation as successful
                         message.postValue("Transactions retrieved")  // Set a success message
-                        Log.d("MainActivity", "Transactions: $it")
                     }
                 } else {
                     // Handle the case when the request was not successful (error codes like 400 or 500)

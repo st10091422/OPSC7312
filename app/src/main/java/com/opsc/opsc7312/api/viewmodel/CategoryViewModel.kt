@@ -12,7 +12,7 @@ import retrofit2.Response
 
 class CategoryViewModel: ViewModel() {
     // Retrofit API service instance for category-related network requests
-    private var api: CategoryService = retrofitclient.createService()
+    var api: CategoryService = retrofitclient.createService()
 
 
     // MutableLiveData to track the success or failure status of API requests
@@ -35,9 +35,6 @@ class CategoryViewModel: ViewModel() {
     fun getAllCategories(id: String) {
         val call = api.getCategories(id)
 
-        // Logging the request URL for debugging purposes
-        val url = call.request().url.toString()
-        //Log.d("MainActivity", "Request URL: $url")
 
         // Asynchronously executes the API call to retrieve categories
         call.enqueue(object : Callback<List<Category>> {
