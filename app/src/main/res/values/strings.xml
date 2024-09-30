@@ -44,4 +44,7 @@
     <string name="lbl_home">Home</string>
     <string name="sign_up_with">Sign up with</string>
     <string name="login_with">Login with</string>
+    <string name="lbl_update_profile">Update Profile</string>
+    <string name="lbl_add_fingerprint">Add a fingerprint</string>
+    <string name="lbl_close">Close</string>
 </resources>

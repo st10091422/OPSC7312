@@ -175,4 +175,51 @@ class UserViewModel: ViewModel() {
             }
         })
     }
+
+
+    fun updateUser(id: String, user: User) {
+        // This method was adapted from medium
+        // https://medium.com/quick-code/working-with-restful-apis-in-android-retrofit-volley-okhttp-eb8d3ec71e06
+        // Megha Verma
+        // https://medium.com/@meghaverma12
+        // Prepare the authorization token
+
+        // Initiate the API call to update the user's email and username, passing the user object
+        val call = api.updateUser(id, user)
+
+        // Log the request URL for debugging purposes
+        val url = call.request().url.toString()
+        Log.d("MainActivity", "Request URL: $url")
+
+        // Enqueue the request to execute it asynchronously
+        call.enqueue(object : Callback<User> {
+            // Handle the server's response when the request succeeds
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                // If the response indicates success, update the user information in LiveData
+                if (response.isSuccessful) {
+                    val updatedUser = response.body()
+                    updatedUser?.let {
+                        // Update the status to true to indicate success and post the updated user data
+                        status.postValue(true)
+                        message.postValue("User email and username updated: $it")
+                        Log.d("MainActivity", "User email and username updated: $it")
+                    }
+                } else {
+                    // If the request fails, log the error code and update the LiveData accordingly
+                    status.postValue(false)
+                    message.postValue("Request failed with code: ${response.code()}")
+                    Log.e("MainActivity", "Request failed with code: ${response.code()}")
+                }
+            }
+
+            // Handle cases where the request fails due to network errors or other issues
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                // Log the error and update the LiveData to reflect the failure
+                Log.e("MainActivity", "Error: ${t.message}")
+                status.postValue(false)
+                message.postValue(t.message)
+            }
+        })
+    }
+
 }

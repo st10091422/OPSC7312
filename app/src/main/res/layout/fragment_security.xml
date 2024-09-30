@@ -52,6 +52,70 @@
         android:paddingBottom="20dp"
         >
 
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:id="@+id/addFingerprint"
+            style="@style/groupStylewhite_A700cornerRadius"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/category_background"
+
+                    android:layout_marginStart="8dp"
+                    android:id="@+id/icon_image_container"
+
+                    android:gravity="center"
+                    android:padding="4dp"
+                    >
+                    <ImageView
+                        android:id="@+id/iconImageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:tint="@color/white"
+                        android:src="@drawable/baseline_add_24"
+                        />
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <TextView
+                android:gravity="center"
+                android:id="@+id/iconName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_add_fingerprint"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/teal_900"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:tint="@color/teal_900"
+                android:src="@drawable/baseline_arrow_forward_ios_24"
+                />
+        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>
