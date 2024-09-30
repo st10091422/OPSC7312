@@ -39,6 +39,10 @@ class NotificationSettingsFragment : Fragment() {
         // Set up listeners for each switch to save preferences when changed
         setupListeners()
 
+        binding.backButton.setOnClickListener {
+            activity?.supportFragmentManager?.popBackStack()
+        }
+
         return binding.root
     }
     private fun applySwitchStyles() {

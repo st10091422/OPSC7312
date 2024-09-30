@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -118,6 +119,10 @@ class CategoriesFragment : Fragment() {
 
 
         val currentUser = localUser.getUser()
+
+        binding.backButton.setOnClickListener {
+            activity?.supportFragmentManager?.popBackStack()
+        }
 
 
 

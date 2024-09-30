@@ -21,6 +21,10 @@ class ProfileFragment : Fragment() {
     ): View? {
         binding = FragmentProfileBinding.inflate(layoutInflater)
 
+        binding.backButton.setOnClickListener {
+            activity?.supportFragmentManager?.popBackStack()
+        }
+
         return binding.root
     }
 

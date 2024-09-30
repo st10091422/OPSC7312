@@ -12,7 +12,7 @@ import retrofit2.http.Path
 
 interface TransactionService {
     @GET("transaction/{id}")
-    fun getTransactions(@Header("Authorization") token: String, @Path("id") userId: String): Call<List<Transaction>>
+    fun getTransactions( @Path("id") userId: String): Call<List<Transaction>>
 
     // Creates a new transaction based on the provided transaction details.
     // This method sends a POST request to the "transaction/create" endpoint.

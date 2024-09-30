@@ -52,7 +52,7 @@
         android:paddingBottom="20dp">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/category_recycle_view"
+            android:id="@+id/transactionRecycleView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="5"

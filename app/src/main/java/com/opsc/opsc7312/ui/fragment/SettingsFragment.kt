@@ -48,6 +48,10 @@ class SettingsFragment : Fragment() {
             showDialog()
         }
 
+        binding.backButton.setOnClickListener {
+            activity?.supportFragmentManager?.popBackStack()
+        }
+
         return binding.root
     }
 

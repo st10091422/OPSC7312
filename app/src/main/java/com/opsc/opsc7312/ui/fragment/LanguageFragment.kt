@@ -25,6 +25,10 @@ class LanguageFragment : Fragment() {
     ): View? {
         binding = FragmentLanguageBinding.inflate(layoutInflater)
 
+        binding.backButton.setOnClickListener {
+            activity?.supportFragmentManager?.popBackStack()
+        }
+
         sharedPreferences = requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE)
 
         val selectedLanguage = sharedPreferences.getString("language", "English")

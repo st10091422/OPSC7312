@@ -33,7 +33,13 @@ class MainSettingsFragment : Fragment() {
         // Load saved preferences from SharedPreferences to set switch states
         binding.switchMode.isChecked = sharedPreferences.getBoolean("Mode", true)
 
+
         setupListeners()
+
+
+        binding.backButton.setOnClickListener {
+            activity?.supportFragmentManager?.popBackStack()
+        }
 
         return binding.root
     }

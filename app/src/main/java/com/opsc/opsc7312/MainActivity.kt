@@ -80,4 +80,13 @@ class MainActivity : AppCompatActivity() {
         val expirationTime = localUser.getTokenExpirationTime() // Get the token expiration time
         return user != null && !localUser.isTokenExpired(expirationTime) // Check if the token is valid
     }
+
+    override fun onBackPressed() {
+        // Check if there are any fragments in the back stack
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            supportFragmentManager.popBackStack() // Go back to the previous fragment
+        } else {
+            super.onBackPressed() // Default behavior to exit the app
+        }
+    }
 }

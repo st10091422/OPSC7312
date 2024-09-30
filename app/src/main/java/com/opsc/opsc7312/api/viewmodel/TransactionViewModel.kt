@@ -29,9 +29,8 @@ class TransactionViewModel:ViewModel() {
     // https://medium.com/quick-code/working-with-restful-apis-in-android-retrofit-volley-okhttp-eb8d3ec71e06
     // Megha Verma
     // https://medium.com/@meghaverma12
-    fun getAllTransactions(userToken: String, id: String) {
-        val token = "Bearer $userToken"  // Prepare the token for authorization
-        val call = api.getTransactions(token, id)  // API call to fetch the user's transactions
+    fun getAllTransactions(id: String) {
+        val call = api.getTransactions(id)  // API call to fetch the user's transactions
 
         // Log the request URL for debugging purposes
         val url = call.request().url.toString()
@@ -76,7 +75,7 @@ class TransactionViewModel:ViewModel() {
     // https://medium.com/quick-code/working-with-restful-apis-in-android-retrofit-volley-okhttp-eb8d3ec71e06
     // Megha Verma
     // https://medium.com/@meghaverma12
-    fun createTransaction(userToken: String, transaction: Transaction) {
+    fun createTransaction(transaction: Transaction) {
         // Make an API call to create a new transaction
         api.createTransaction(transaction).enqueue(object : Callback<Transaction> {
             // Callback when the response is received successfully
@@ -112,7 +111,7 @@ class TransactionViewModel:ViewModel() {
     // https://medium.com/quick-code/working-with-restful-apis-in-android-retrofit-volley-okhttp-eb8d3ec71e06
     // Megha Verma
     // https://medium.com/@meghaverma12
-    fun updateTransaction(userToken: String, id: String, transaction: Transaction) {
+    fun updateTransaction( id: String, transaction: Transaction) {
         // Make an API call to update an existing transaction
         api.updateTransaction(id, transaction).enqueue(object : Callback<Transaction> {
             // Callback when the response is received successfully
@@ -148,7 +147,7 @@ class TransactionViewModel:ViewModel() {
     // https://medium.com/quick-code/working-with-restful-apis-in-android-retrofit-volley-okhttp-eb8d3ec71e06
     // Megha Verma
     // https://medium.com/@meghaverma12
-    fun deleteTransaction(userToken: String, id: String) {
+    fun deleteTransaction(id: String) {
         // Make an API call to delete a transaction
         api.deleteTransaction(id).enqueue(object : Callback<Void> {
             // Callback when the response is received successfully

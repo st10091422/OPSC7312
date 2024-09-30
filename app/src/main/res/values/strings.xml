@@ -31,4 +31,14 @@
     <string name="lbl_notification_settings">Notifications</string>
     <string name="lbl_lanuage">Language</string>
     <string name="lbl_profile">Profile</string>
+    <string name="lbl_create_transaction">New Transaction</string>
+    <string name="lbl_amount">Amount</string>
+    <string name="enter_amount">Enter amount</string>
+    <string name="msg_title">Enter title</string>
+    <string name="lbl_title">Title</string>
+    <string name="lbl_description">Description</string>
+    <string name="lbl_date">Date</string>
+    <string name="lbl_category">Category</string>
+    <string name="lbl_date_hint">dd/MM/yyyy</string>
+    <string name="lbl_update_transaction">Transation</string>
 </resources>

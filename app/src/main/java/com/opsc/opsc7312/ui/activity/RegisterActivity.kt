@@ -254,4 +254,14 @@ class RegisterActivity : AppCompatActivity() {
         // Call the registerWithSSO method to initiate the login process
         viewModel.registerWithSSO(user)
     }
+
+    override fun onBackPressed() {
+        // Check if there are any fragments in the back stack
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            supportFragmentManager.popBackStack() // Go back to the previous fragment
+        } else {
+            super.onBackPressed() // Default behavior to exit the app
+        }
+    }
+
 }

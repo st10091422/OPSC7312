@@ -21,6 +21,10 @@ class SecurityFragment : Fragment() {
     ): View? {
         binding = FragmentSecurityBinding.inflate(layoutInflater)
 
+        binding.backButton.setOnClickListener {
+            activity?.supportFragmentManager?.popBackStack()
+        }
+
         return binding.root
     }
 }

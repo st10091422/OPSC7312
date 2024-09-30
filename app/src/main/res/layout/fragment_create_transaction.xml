@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.CreateTransactionFragment"
+    android:orientation="vertical"
+    style="@style/groupStyledeep_orange_400">
+
+    <Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        >
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:tint="@color/white"
+            android:src="@drawable/baseline_arrow_back_24"
+            android:layout_gravity="start"
+            />
+
+        <TextView
+            android:id="@+id/txtWelcome"
+            style="@style/txtPoppinssemibold30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:ellipsize="end"
+
+            android:lineSpacingExtra="15dp"
+            android:singleLine="true"
+            android:text="@string/lbl_create_transaction"
+            tools:text="@string/lbl_create_transaction" />
+    </Toolbar>
+
+    <LinearLayout
+        android:id="@+id/linearColumnusernameo"
+        style="@style/groupStylewhite_A700cornerRadius"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="1dp"
+        android:orientation="vertical"
+        android:paddingStart="36dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="36dp"
+        android:paddingBottom="20dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7"
+            android:paddingBottom="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/txtPoppinsmedium15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@string/lbl_date"
+                    tools:text="@string/lbl_date"
+                    android:layout_marginTop="20dp"/>
+
+                <LinearLayout
+                    android:id="@+id/datePicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/rectangle_bg_red_50_radius_18"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="10dp"
+                    >
+                    <TextView
+                        android:id="@+id/txtDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="@string/lbl_date_hint"
+                        tools:text="@string/lbl_date_hint"
+                        android:gravity="center"
+                        />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+                    <LinearLayout
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:orientation="vertical"
+                        android:background="@drawable/main_settings_background"
+
+                        android:layout_marginStart="8dp"
+                        android:id="@+id/icon_image_container"
+
+                        android:gravity="center"
+                        android:padding="4dp"
+                        >
+                        <ImageView
+                            android:id="@+id/iconImageView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:tint="@color/white"
+                            android:src="@drawable/baseline_calendar_today_24"
+                            />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    style="@style/txtPoppinsmedium15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@string/lbl_category"
+                    tools:text="@string/lbl_category"
+                    android:layout_marginTop="20dp"/>
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:spinnerMode="dropdown"
+                    android:background="@drawable/category_spinner_bg"
+                    android:layout_marginTop="20dp"
+                    />
+                <TextView
+                    style="@style/txtPoppinsmedium15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@string/lbl_amount"
+                    tools:text="@string/lbl_amount"
+                    android:layout_marginTop="20dp"/>
+
+
+                <EditText
+                    android:id="@+id/amount"
+                    style="@style/etSolidRounded"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/rectangle_bg_red_50_radius_18"
+                    android:ellipsize="end"
+                    android:hint="@string/enter_amount"
+                    android:inputType="numberDecimal"
+                    android:lineSpacingExtra="8dp"
+                    android:paddingStart="30dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="30dp"
+                    android:paddingBottom="8dp"
+                    android:singleLine="true"
+                    android:textColorHint="@color/blue_gray_900_83"
+                    tools:ignore="Autofill" />
+
+
+                <TextView
+                    android:id="@+id/txtUsernameor"
+                    style="@style/txtPoppinsmedium15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@string/lbl_title"
+                    tools:text="@string/lbl_title"
+                    android:layout_marginTop="20dp"/>
+
+                <EditText
+                    android:id="@+id/title"
+                    style="@style/etSolidRounded"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/rectangle_bg_red_50_radius_18"
+                    android:ellipsize="end"
+                    android:hint="@string/msg_title"
+                    android:inputType="text"
+                    android:lineSpacingExtra="8dp"
+                    android:paddingStart="30dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="30dp"
+                    android:paddingBottom="8dp"
+                    android:singleLine="true"
+                    android:textColorHint="@color/blue_gray_900_83"
+                    tools:ignore="Autofill" />
+
+                <TextView
+                    style="@style/txtPoppinsmedium15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@string/lbl_description"
+                    tools:text="@string/lbl_description"
+                    android:layout_marginTop="20dp"/>
+
+                <EditText
+                    android:id="@+id/description"
+                    style="@style/etSolidRounded"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/rectangle_bg_red_50_radius_18"
+                    android:ellipsize="end"
+                    android:hint="@string/msg_title"
+                    android:inputType="textMultiLine"
+                    android:lineSpacingExtra="8dp"
+                    android:paddingStart="30dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="30dp"
+                    android:paddingBottom="8dp"
+                    android:maxLines="5"
+                    android:scrollHorizontally="false"
+                    android:textColorHint="@color/blue_gray_900_83"
+                    android:gravity="top"
+                    tools:ignore="Autofill" />
+
+
+
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/save"
+                style="@style/btnSolidRounded"
+                android:layout_width="250dp"
+                android:layout_height="45dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:paddingStart="30dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="30dp"
+
+                android:paddingBottom="5dp"
+                android:singleLine="true"
+                android:text="@string/lbl_save"
+                android:textAllCaps="false"
+                tools:text="@string/lbl_save" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
