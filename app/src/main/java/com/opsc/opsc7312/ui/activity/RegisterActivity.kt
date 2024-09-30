@@ -66,7 +66,7 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         binding.redirectLogin.setOnClickListener {
-            startActivity(Intent(this, RegisterActivity::class.java)) // Start LoginActivity
+            startActivity(Intent(this, LoginActivity::class.java)) // Start LoginActivity
             finish()
         }
     }

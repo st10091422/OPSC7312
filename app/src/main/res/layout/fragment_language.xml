@@ -35,8 +35,8 @@
 
             android:lineSpacingExtra="15dp"
             android:singleLine="true"
-            android:text="@string/lbl_lanuage"
-            tools:text="@string/lbl_lanuage" />
+            android:text="@string/lbl_language"
+            tools:text="@string/lbl_language" />
     </Toolbar>
 
     <LinearLayout
