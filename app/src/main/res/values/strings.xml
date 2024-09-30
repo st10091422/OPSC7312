@@ -42,4 +42,7 @@
     <string name="lbl_date_hint">dd/MM/yyyy</string>
     <string name="lbl_update_transaction">Transation</string>
     <string name="lbl_home">Home</string>
+    <string name="lbl_update_profile">Update Profile</string>
+    <string name="lbl_add_fingerprint">Add a fingerprint</string>
+    <string name="lbl_close">Close</string>
 </resources>
