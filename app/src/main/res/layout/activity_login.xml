@@ -126,10 +126,12 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnGoogle"
             style="@style/btnSolidRounded_1"
-            android:layout_width="207dp"
+            android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="13dp"
+            android:drawableEnd="@drawable/ic_google"
+            android:drawablePadding="8dp"
             android:ellipsize="end"
             android:gravity="center"
             android:lineSpacingExtra="10dp"
@@ -138,9 +140,8 @@
             android:paddingEnd="30dp"
             android:paddingBottom="6dp"
             android:singleLine="true"
-            android:text="@string/lbl_sign_up"
-            android:textAllCaps="false"
-            tools:text="@string/google" />
+            android:text="@string/login_with"
+            android:textAllCaps="false"/>
 
         <TextView
             android:id="@+id/redirectRegister"
