@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Custom background (your shape) -->
+    <item>
+        <shape>
+            <corners android:radius="10dp" /> <!-- Your corner radius -->
+            <stroke
+                android:width="1.5dp"
+                android:color="@color/teal_900" />
+        </shape>
+    </item>
+
+    <!-- Dropdown arrow overlay -->
+    <item android:right="8dp" android:gravity="end|center_vertical">
+        <bitmap
+            android:src="@android:drawable/arrow_down_float"
+            android:gravity="center_vertical|end" />
+    </item>
+</layer-list>

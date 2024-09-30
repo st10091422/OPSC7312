@@ -24,4 +24,11 @@
     <string name="lbl_new_category">New Category</string>
     <string name="lbl_cat_name">write...</string>
     <string name="choose_icon">Choose Icon</string>
+    <string name="lbl_edit_profile">Edit Profile</string>
+    <string name="lbl_security">Security</string>
+    <string name="lbl_logout">Logout</string>
+    <string name="lbl_confirm">Confirm</string>
+    <string name="lbl_notification_settings">Notifications</string>
+    <string name="lbl_lanuage">Language</string>
+    <string name="lbl_profile">Profile</string>
 </resources>

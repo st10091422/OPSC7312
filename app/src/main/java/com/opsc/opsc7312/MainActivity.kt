@@ -50,9 +50,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.transactions -> changeCurrentFragment(TransactionsFragment())
                 R.id.categories -> changeCurrentFragment(CategoriesFragment())
                 R.id.settings -> changeCurrentFragment(SettingsFragment())
-                R.id.logout -> {
-                    logOut()
-                }
+
             }
             true
         }
@@ -82,13 +80,4 @@ class MainActivity : AppCompatActivity() {
         val expirationTime = localUser.getTokenExpirationTime() // Get the token expiration time
         return user != null && !localUser.isTokenExpired(expirationTime) // Check if the token is valid
     }
-
-    private fun logOut() {
-        localUser.clearUser() // Clear the stored token
-        Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show() // Show logout message
-        startActivity(Intent(this, MainActivity::class.java)) // Restart the MainActivity
-        finish() // Finish the current activity
-    }
-
-
 }

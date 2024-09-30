@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.NotificationSettingsFragment"
+    android:orientation="vertical"
+    style="@style/groupStyledeep_orange_400">
+
+    <Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        >
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:tint="@color/white"
+            android:src="@drawable/baseline_arrow_back_24"
+            android:layout_gravity="start"
+            />
+
+        <TextView
+            android:id="@+id/txtWelcome"
+            style="@style/txtPoppinssemibold30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:ellipsize="end"
+
+            android:lineSpacingExtra="15dp"
+            android:singleLine="true"
+            android:text="@string/lbl_notification_settings"
+            tools:text="@string/lbl_notification_settings" />
+    </Toolbar>
+
+
+    <LinearLayout
+        android:id="@+id/linearColumnusernameo"
+        style="@style/groupStylewhite_A700cornerRadius"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="1dp"
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingHorizontal="35dp"
+        >
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            style="@style/groupStylewhite_A700cornerRadius"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_general"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="General Notifications"
+                android:thumbTint="@color/yellow_900"
+                android:trackTint="@color/yellow_900"
+                android:textSize="15sp"
+                android:fontFamily="@font/poppins_semibold"
+
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            style="@style/groupStylewhite_A700cornerRadius"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_sound"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Sound"
+                android:thumbTint="@color/yellow_900"
+                android:trackTint="@color/yellow_900"
+                android:textSize="15sp"
+                android:fontFamily="@font/poppins_semibold"
+
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            style="@style/groupStylewhite_A700cornerRadius"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_vibrate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Vibrate"
+                android:thumbTint="@color/yellow_900"
+                android:trackTint="@color/yellow_900"
+                android:textSize="15sp"
+                android:fontFamily="@font/poppins_semibold"
+
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:id="@+id/general"
+            style="@style/groupStylewhite_A700cornerRadius"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_transaction_update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Transaction Update"
+                android:thumbTint="@color/yellow_900"
+                android:trackTint="@color/yellow_900"
+                android:textSize="15sp"
+                android:fontFamily="@font/poppins_semibold"
+
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            style="@style/groupStylewhite_A700cornerRadius"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_expense_reminder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Expense Reminder"
+                android:thumbTint="@color/yellow_900"
+                android:trackTint="@color/yellow_900"
+                android:textSize="15sp"
+                android:fontFamily="@font/poppins_semibold"
+
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
