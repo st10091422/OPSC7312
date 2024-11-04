@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.opsc.opsc7312"
+    namespace = "com.opsc.opsc7312poe"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.opsc.opsc7312"
+        applicationId = "com.opsc.opsc7312poe"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -57,5 +57,7 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
     implementation("androidx.preference:preference:1.2.0")
     implementation("com.google.android.gms:play-services-auth:21.2.0")
-
+    implementation("androidx.biometric:biometric:1.1.0")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation("androidx.work:work-runtime-ktx:2.8.1")
 }

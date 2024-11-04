@@ -140,6 +140,26 @@
                     android:background="@drawable/category_spinner_bg"
                     android:layout_marginTop="20dp"
                     />
+
+                <TextView
+                    style="@style/txtPoppinsmedium15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@string/lbl_ytansaction_type"
+                    tools:text="@string/lbl_ytansaction_type"
+                    android:layout_marginTop="20dp"/>
+
+                <Spinner
+                    android:id="@+id/transaction_type_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:spinnerMode="dropdown"
+                    android:background="@drawable/category_spinner_bg"
+                    android:layout_marginTop="20dp"
+                    />
                 <TextView
                     style="@style/txtPoppinsmedium15"
                     android:layout_width="wrap_content"
