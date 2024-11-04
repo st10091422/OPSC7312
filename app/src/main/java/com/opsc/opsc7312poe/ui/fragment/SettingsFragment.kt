@@ -1,19 +1,20 @@
-package com.opsc.opsc7312poe.ui.fragment
+package com.opsc.opsc7312.ui.fragment
 
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import com.opsc.opsc7312poe.MainActivity
-import com.opsc.opsc7312poe.R
-import com.opsc.opsc7312poe.api.local.LocalUser
-import com.opsc.opsc7312poe.databinding.FragmentSettingsBinding
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.opsc.opsc7312.MainActivity
+import com.opsc.opsc7312.R
+import com.opsc.opsc7312.api.local.LocalUser
+import com.opsc.opsc7312.databinding.FragmentSettingsBinding
 
 
 class SettingsFragment : Fragment() {
@@ -21,34 +22,29 @@ class SettingsFragment : Fragment() {
     private lateinit var binding: FragmentSettingsBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         binding = FragmentSettingsBinding.inflate(layoutInflater)
-
         localUser = LocalUser.getInstance(requireContext())
 
         binding.editProfile.setOnClickListener {
-            changeCurrentFragment(ProfileFragment())
+            findNavController().navigate(R.id.action_settingsFragment_to_profileFragment)
         }
 
-        // Listener for the language section, switches to LanguageFragment
         binding.security.setOnClickListener {
-            changeCurrentFragment(SecurityFragment())
+            findNavController().navigate(R.id.action_settingsFragment_to_securityFragment)
         }
 
-        // Listener for the security section, switches to SecurityFragment
         binding.settings.setOnClickListener {
-            changeCurrentFragment(MainSettingsFragment())
+            findNavController().navigate(R.id.action_settingsFragment_to_mainSettingsFragment)
         }
 
-        // Listener for the appearance section, switches to ThemeFragment
         binding.logout.setOnClickListener {
             showDialog()
         }
 
         binding.backButton.setOnClickListener {
-            activity?.supportFragmentManager?.popBackStack()
+            findNavController().navigateUp() // Navigate back using Navigation Component
         }
 
         return binding.root
@@ -59,9 +55,7 @@ class SettingsFragment : Fragment() {
         val dialogView = layoutInflater.inflate(R.layout.confrim_dialog, null)
 
         // Create the AlertDialog using a custom view
-        val dialogBuilder = AlertDialog.Builder(requireContext())
-            .setView(dialogView)
-            .create()
+        val dialogBuilder = AlertDialog.Builder(requireContext()).setView(dialogView).create()
 
         // Find the dialog views
         val confirmButton: LinearLayout = dialogView.findViewById(R.id.confirmButton)
@@ -88,23 +82,18 @@ class SettingsFragment : Fragment() {
         }
 
         // Show the dialog
-        dialogBuilder.show()    }
+        dialogBuilder.show()
+    }
 
     private fun logout() {
         localUser.clearUser() // Clear the stored token
-        Toast.makeText(requireContext(), "Logged out", Toast.LENGTH_SHORT).show() // Show logout message
-        startActivity(Intent(requireContext(), MainActivity::class.java)) // Restart the MainActivity
-    }
-
-    // Function to replace the current fragment with a new one and add it to the back stack
-    private fun changeCurrentFragment(fragment: Fragment) {
-        // This method was adapted from stackoverflow
-        // https://stackoverflow.com/questions/52318195/how-to-change-fragment-kotlin
-        // Marcos Maliki
-        // https://stackoverflow.com/users/8108169/marcos-maliki
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.frame_layout, fragment) // Replace the content of the frame layout
-            .addToBackStack(null) // Add the transaction to the back stack
-            .commit() // Commit the transaction
+        Toast.makeText(requireContext(), "Logged out", Toast.LENGTH_SHORT)
+            .show() // Show logout message
+        startActivity(
+            Intent(
+                requireContext(),
+                MainActivity::class.java
+            )
+        ) // Restart the MainActivity
     }
 }

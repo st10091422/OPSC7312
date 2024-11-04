@@ -1,4 +1,4 @@
-package com.opsc.opsc7312poe.ui.fragment
+package com.opsc.opsc7312.ui.fragment
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -9,21 +9,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import com.opsc.opsc7312poe.R
-import com.opsc.opsc7312poe.api.data.Category
-import com.opsc.opsc7312poe.api.data.Transaction
-import com.opsc.opsc7312poe.api.local.LocalUser
-import com.opsc.opsc7312poe.api.local.NotificationManager
-import com.opsc.opsc7312poe.api.local.db.databasehelper.CategoryDatabaseHelper
-import com.opsc.opsc7312poe.api.local.db.databasehelper.TransactionDatabaseHelper
-import com.opsc.opsc7312poe.api.viewmodel.CategoryViewModel
-import com.opsc.opsc7312poe.api.viewmodel.TransactionViewModel
-import com.opsc.opsc7312poe.databinding.FragmentCreateTransactionBinding
-import com.opsc.opsc7312poe.ui.activity.LoginActivity
-import com.opsc.opsc7312poe.ui.observer.GetCategoriesObserver
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.navigateUp
+import com.opsc.opsc7312.MainActivity
+import com.opsc.opsc7312.R
+import com.opsc.opsc7312.api.data.Category
+import com.opsc.opsc7312.api.data.Transaction
+import com.opsc.opsc7312.api.local.LocalUser
+import com.opsc.opsc7312.api.viewmodel.CategoryViewModel
+import com.opsc.opsc7312.api.viewmodel.TransactionViewModel
+import com.opsc.opsc7312.databinding.FragmentCreateTransactionBinding
+import com.opsc.opsc7312.ui.observer.GetCategoriesObserver
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -39,63 +37,39 @@ class CreateTransactionFragment : Fragment() {
     private lateinit var localUser: LocalUser
     private var selectedCategoryId: String? = null
 
-    private var selectedTransactionType: String? = null
     private lateinit var categories: MutableList<Category>
-
-    private lateinit var categoryDatabaseHelper: CategoryDatabaseHelper
-
-    private lateinit var transactionDatabaseHelper: TransactionDatabaseHelper
-
-    private lateinit var notificationManager: NotificationManager
-
-    private val transactionTypes = listOf("income", "expenses")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCreateTransactionBinding.inflate(layoutInflater)
-
-        // Get the CategoryController ViewModel for interacting with category data.
         categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
         transactionViewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
-
-        categoryDatabaseHelper = CategoryDatabaseHelper(requireContext())
-
-        transactionDatabaseHelper = TransactionDatabaseHelper(requireContext())
-
-        notificationManager = NotificationManager(requireContext())
-
         categories = mutableListOf()
         localUser = LocalUser.getInstance(requireContext())
 
         binding.backButton.setOnClickListener {
-            activity?.supportFragmentManager?.popBackStack()
+            findNavController().navigateUp() // Navigate back using Navigation Component
         }
 
-        // Set up the spinner's item selection listener
         binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                // Retrieve the selected category using the position index
-                selectedCategoryId = categories[position].id // Get the ID directly from the list
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                // Add a null check for the view parameter
+                view?.let {
+                    // Access view elements here, e.g., view.findViewById<TextView>(R.id.textView).text
+                    selectedCategoryId = categories[position].id
+                } ?: run {
+                    // Handle the case where the view is null (e.g., log an error)
+                    Log.e("CreateTransactionFragment", "Spinner item view is null")
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-                selectedCategoryId = null // Reset if nothing is selected
+                selectedCategoryId = null
             }
         }
 
-        binding.transactionTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                // Retrieve the selected category using the position index
-                selectedTransactionType = transactionTypes[position] // Get the ID directly from the list
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                selectedCategoryId = null // Reset if nothing is selected
-            }
-        }
-
-        binding.save.setOnClickListener{
+        binding.save.setOnClickListener {
             addData()
         }
 
@@ -104,75 +78,15 @@ class CreateTransactionFragment : Fragment() {
         }
 
         val currentUser = localUser.getUser()
-
-        // If the token is valid, observe the category data through the ViewModel.
         if (currentUser != null) {
-            getCategories(currentUser.id)
+            getAllCategories(currentUser.id)
         } else {
-            // Handle the scenario where the token is null (e.g., log an error or show a message).
-            startActivity(Intent(requireContext(), LoginActivity::class.java)) // Restart the MainActivity
+            startActivity(Intent(requireContext(), MainActivity::class.java))
         }
 
         return binding.root
     }
 
-    private fun getCategories(userId: String){
-
-        try {
-            val categories = categoryDatabaseHelper.getAllCategories(userId)
-
-            updateCategories(categories)
-
-
-
-            binding.spinner.adapter = setUpSpinner(categories)
-
-            binding.transactionTypeSpinner.adapter = setUpTransactionTypeSpinner(transactionTypes)
-
-        } catch (e: Exception) {
-            Log.e("DatabaseError", "Error getting categories", e)
-        }
-    }
-
-    private fun addNewTransaction(transaction: Transaction){
-        transaction.id = transactionId()
-        val isInserted = transactionDatabaseHelper.addTransaction(transaction)
-
-        if(isInserted != -1L){
-            if(transaction.transactionType == "income"){
-                notificationManager.createIncomeNotification()
-            } else if(transaction.transactionType == "expense"){
-                notificationManager.createIncomeNotification()
-            }
-            changeCurrentFragment(TransactionsFragment())
-        } else {
-            // Handle the case where the category was not inserted
-            Toast.makeText(requireContext(), getString(R.string.something_went_wrong), Toast.LENGTH_SHORT)
-        }
-    }
-    private fun transactionId(): String{
-        val timestamp = System.currentTimeMillis()
-        val randomSuffix = (1000..9999).random() // Random 4-digit number
-        return "$timestamp-$randomSuffix"
-    }
-
-    private fun setUpSpinner(value: List<Category>): ArrayAdapter<String> {
-        val customAdapter = ArrayAdapter(
-            requireContext(),
-            R.layout.custom_spinner_item,
-            value.map { it.name } )
-
-        return customAdapter
-    }
-
-    private fun setUpTransactionTypeSpinner(value: List<String>): ArrayAdapter<String> {
-        val customAdapter = ArrayAdapter(
-            requireContext(),
-            R.layout.custom_spinner_item,
-            value.map { it } )
-
-        return customAdapter
-    }
     fun updateCategories(data: List<Category>){
         categories.clear()
         categories.addAll(data)
@@ -279,7 +193,6 @@ class CreateTransactionFragment : Fragment() {
 
                 // Dismiss the dialog after 2 seconds and redirect to the login screen
                 Toast.makeText(requireContext(), "Transaction created!", Toast.LENGTH_SHORT).show() // Show logout message
-                changeCurrentFragment(TransactionsFragment())
 
             } else {
                 // Update the progress dialog for unsuccessful registration
@@ -327,33 +240,30 @@ class CreateTransactionFragment : Fragment() {
 
             // Validate input data
             if (title.isEmpty()) {
-                Toast.makeText(requireContext(), getString(R.string.required_title), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Title is required!", Toast.LENGTH_SHORT).show()
                 return
             }
 
             if (sanitizedAmountString.isEmpty()) {
-                Toast.makeText(requireContext(), getString(R.string.required_amount), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Amount is required!", Toast.LENGTH_SHORT).show()
                 return
             }
 
             // Check if the sanitized amount can be parsed to a double
             val amount = sanitizedAmountString.toDoubleOrNull()
             if (amount == null || amount <= 0) {
-                Toast.makeText(requireContext(), getString(R.string.must_be_number), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Amount must be a positive number!", Toast.LENGTH_SHORT).show()
                 return
             }
 
-
-
-
             if (date.isEmpty()) {
-                Toast.makeText(requireContext(), getString(R.string.required_date), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Date is required!", Toast.LENGTH_SHORT).show()
                 return
             }
 
             // Validate date format
             if (!isValidDate(date)) {
-                Toast.makeText(requireContext(), getString(R.string.invalid_date), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Invalid date format!", Toast.LENGTH_SHORT).show()
                 return
             }
 
@@ -361,20 +271,14 @@ class CreateTransactionFragment : Fragment() {
             try {
                 StringToLong(date) // This will throw if the date is invalid
             } catch (e: IllegalArgumentException) {
-                Toast.makeText(requireContext(), getString(R.string.date_long), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Invalid date format! Please use dd/MM/yyyy", Toast.LENGTH_SHORT).show()
                 return
             }
 
             if (selectedCategoryId == null) {
-                Toast.makeText(requireContext(), getString(R.string.select_category), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Please select a category!", Toast.LENGTH_SHORT).show()
                 return
             }
-
-            if (selectedTransactionType == null) {
-                Toast.makeText(requireContext(), getString(R.string.select_transaction_type), Toast.LENGTH_SHORT).show()
-                return
-            }
-
 
             // Assuming the selected category is an instance of Category, retrieve its ID
             val newTransaction = Transaction(
@@ -383,28 +287,15 @@ class CreateTransactionFragment : Fragment() {
                 userid = currentUser.id,
                 description = description,
                 date = StringToLong(date),
-                categoryid = selectedCategoryId!!,
-                transactionType = selectedTransactionType!!
+                categoryid = selectedCategoryId!! // Include the category ID in the transaction
             )
 
             // Proceed to add the transaction after validation
-            addNewTransaction(newTransaction)
+            addTransaction(newTransaction)
         } else {
             // Handle the scenario where the token is null (e.g., log an error or show a message).
-            startActivity(Intent(requireContext(), LoginActivity::class.java)) // Restart the MainActivity
+            startActivity(Intent(requireContext(), MainActivity::class.java)) // Restart the MainActivity
         }
-    }
-
-    // Helper function to change the current fragment in the activity.
-    private fun changeCurrentFragment(fragment: Fragment) {
-        // This method was adapted from stackoverflow
-        // https://stackoverflow.com/questions/52318195/how-to-change-fragment-kotlin
-        // Marcos Maliki
-        // https://stackoverflow.com/users/8108169/marcos-maliki
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.frame_layout, fragment)
-            .addToBackStack(null)
-            .commit()
     }
 
     fun longToDate(timestamp: Long): String {

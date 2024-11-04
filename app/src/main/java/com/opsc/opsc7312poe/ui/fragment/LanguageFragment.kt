@@ -1,68 +1,71 @@
-package com.opsc.opsc7312poe.ui.fragment
+package com.opsc.opsc7312.ui.fragment
 
 import android.content.Context
-import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import com.opsc.opsc7312poe.R
-import com.opsc.opsc7312poe.databinding.FragmentLanguageBinding
-
+import androidx.fragment.app.Fragment
+import com.opsc.opsc7312.R
+import com.opsc.opsc7312.databinding.FragmentLanguageBinding
+import java.util.Locale
 
 class LanguageFragment : Fragment() {
-    private lateinit var binding: FragmentLanguageBinding
-    private lateinit var sharedPreferences: SharedPreferences
 
+    private lateinit var binding: FragmentLanguageBinding // Holds the UI elements of the fragment
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentLanguageBinding.inflate(layoutInflater)
+    ): View {
+        binding = FragmentLanguageBinding.inflate(layoutInflater) // Inflate the layout for the fragment
 
+        // Set click listener for the back button to go back to the previous screen
         binding.backButton.setOnClickListener {
             activity?.supportFragmentManager?.popBackStack()
         }
 
-        sharedPreferences = requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE)
+        // Define language options and their corresponding codes
+        val dropdownItems = arrayListOf("Afrikaans", "English", "Zulu")
+        val languageCodes = arrayListOf("af", "en", "zu")
 
-        val selectedLanguage = sharedPreferences.getString("language", "English")
-        val dropdownItems = arrayListOf("Afrikaans", "English",  "Zulu")
-
+        // Create an adapter for the spinner to display language options
         val customAdapter = ArrayAdapter(requireContext(), R.layout.custom_spinner_item, dropdownItems)
-        binding.spinner.adapter = customAdapter
+        binding.spinner.adapter = customAdapter // Set the adapter to the spinner
 
-        val selectedIndex = dropdownItems.indexOf(selectedLanguage)
+
+        // Get the current language and set the spinner to the current language
+        val currentLocale = Locale.getDefault()
+        val selectedIndex = languageCodes.indexOf(currentLocale.language)
         if (selectedIndex >= 0) {
             binding.spinner.setSelection(selectedIndex)
         }
-        binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                // Handle item selection
-                val newLanguage = parent?.getItemAtPosition(position).toString()
-                // You can save the selected language to SharedPreferences
-                sharedPreferences.edit().putString("language", newLanguage).apply()
 
-                // Optionally, show a message or take action based on the selected language
-                // Example: Toast.makeText(requireContext(), "Selected: $selectedLanguage", Toast.LENGTH_SHORT).show()
+        // Set a listener to detect when a language is selected from the spinner
+        binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val newLanguageCode = languageCodes[position] // Get the code of the selected language
+                setLocale(newLanguageCode) // Change the app's language
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                // Handle case when no item is selected (if needed)
+                // Do nothing if no language is selected
             }
         }
 
-        return binding.root
+        return binding.root // Return the root view of the fragment
     }
 
-
+    // Function to change the app's language
+    private fun setLocale(languageCode: String) {
+        val locale = Locale(languageCode) // Create a Locale object for the new language
+        Locale.setDefault(locale) // Set the new language as the default
+        val config = Configuration() // Create a Configuration object
+        config.locale = locale // Set the new language in the Configuration
+        requireActivity().resources.updateConfiguration(config, requireActivity().resources.displayMetrics) // Update the app's configuration
+        activity?.recreate() // Restart the activity to apply the language change
+    }
 }

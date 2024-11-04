@@ -51,5 +51,10 @@
         <item name="android:background">@drawable/rectangle_bg_deep_orange_50_radius_22</item>
     </style>
 
-    <style name="txtPoppinssemibold14"></style>
+    <style name="CalendarViewTheme" parent="Theme.AppCompat">
+        <item name="colorAccent">@color/deep_orange_400</item>
+        <item name="android:textColorPrimary">@color/deep_orange_400</item>
+        <item name="android:textColorSecondary">@color/deep_orange_400</item>
+    </style>
+
 </resources>

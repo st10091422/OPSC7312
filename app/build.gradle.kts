@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.opsc.opsc7312poe"
+    namespace = "com.opsc.opsc7312"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.opsc.opsc7312poe"
+        applicationId = "com.opsc.opsc7312"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -47,17 +47,21 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.firebase.auth)
+
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
     testImplementation(libs.androidx.core.testing)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
-    implementation("androidx.preference:preference:1.2.0")
-    implementation("com.google.android.gms:play-services-auth:21.2.0")
-    implementation("androidx.biometric:biometric:1.1.0")
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
-    implementation("androidx.work:work-runtime-ktx:2.8.1")
+
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+    implementation(libs.androidx.preference)
+    implementation (libs.play.services.auth)
+    implementation(libs.androidx.biometric)
+    implementation (libs.mpandroidchart) //piechart
+    implementation(libs.androidx.navigation.fragment.ktx) //navigation graph
+    implementation(libs.androidx.navigation.ui.ktx)
+
 }
