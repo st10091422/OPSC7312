@@ -17,8 +17,6 @@ import com.opsc.opsc7312poe.api.local.LocalUser
 import com.opsc.opsc7312poe.api.local.db.databasehelper.CategoryDatabaseHelper
 import com.opsc.opsc7312poe.api.local.db.databasehelper.TransactionDatabaseHelper
 import com.opsc.opsc7312poe.databinding.FragmentAnalyticsBinding
-import com.opsc.opsc7312poe.databinding.FragmentTransactionDetailsBinding
-import com.opsc.opsc7312poe.databinding.FragmentTransactionsBinding
 import com.opsc.opsc7312poe.ui.activity.LoginActivity
 import java.util.Calendar
 
