@@ -35,8 +35,8 @@
 
             android:lineSpacingExtra="15dp"
             android:singleLine="true"
-            android:text="Transaction"
-            tools:text="Transaction" />
+            android:text="@string/lbl_update_transaction"
+            tools:text="@string/lbl_update_transaction" />
     </Toolbar>
 
     <LinearLayout

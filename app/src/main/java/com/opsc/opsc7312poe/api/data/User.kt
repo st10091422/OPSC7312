@@ -5,6 +5,5 @@ data class User(
     var username: String = "",          // The username for the user's account
     var email: String = "",             // The user's email address
     var password: String = "",
-    var message: String = "",
-    var token: String? = null // Add this property for the ID token
+    var message: String = ""
 )

@@ -70,7 +70,7 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/rectangle_bg_red_50_radius_18"
             android:ellipsize="end"
-            android:hint="enter your new email"
+            android:hint="@string/enter_email"
             android:inputType="text"
             android:lineSpacingExtra="8dp"
             android:paddingStart="30dp"
@@ -96,8 +96,8 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="Username"
-                tools:text="Username" />
+                android:text="@string/enter_username"
+                tools:text="@string/enter_username" />
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/etUsername"

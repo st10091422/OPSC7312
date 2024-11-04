@@ -82,8 +82,8 @@
                 android:layout_marginStart="16dp"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="Username"
-                tools:text="Username" />
+                android:text="@string/password"
+                tools:text="@string/password" />
 
             <EditText
                 android:id="@+id/etUsername"
@@ -94,7 +94,7 @@
                 android:background="@drawable/rectangle_bg_red_50_radius_18"
                 android:ellipsize="end"
                 android:hint="@string/enter_username"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:lineSpacingExtra="8dp"
                 android:paddingStart="30dp"
                 android:paddingTop="8dp"
@@ -133,7 +133,7 @@
                 android:background="@drawable/rectangle_bg_red_50_radius_18"
                 android:ellipsize="end"
                 android:hint="@string/enter_password"
-                android:inputType="textPassword"
+                android:inputType="text"
                 android:lineSpacingExtra="8dp"
                 android:paddingStart="30dp"
                 android:paddingTop="8dp"

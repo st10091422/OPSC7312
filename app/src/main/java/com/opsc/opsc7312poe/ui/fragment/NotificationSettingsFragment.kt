@@ -35,6 +35,7 @@ class NotificationSettingsFragment : Fragment() {
         binding.switchExpenseReminder.isChecked = sharedPreferences.getBoolean("ExpenseReminder", true)
         binding.switchTransactionUpdate.isChecked = sharedPreferences.getBoolean("TransactionUpdate", true)
 
+
         // Set up listeners for each switch to save preferences when changed
         setupListeners()
 

@@ -1,23 +1,23 @@
-package com.opsc.opsc7312.ui.fragment
+package com.opsc.opsc7312poe.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.opsc.opsc7312.MainActivity
-import com.opsc.opsc7312.R
-import com.opsc.opsc7312.api.local.LocalUser
-import com.opsc.opsc7312.api.viewmodel.TransactionViewModel
-import com.opsc.opsc7312.databinding.FragmentHomeBinding
-import com.opsc.opsc7312.ui.adapter.TransactionAdapter
-import com.opsc.opsc7312.ui.observer.HomeObserver
+import com.opsc.opsc7312poe.MainActivity
+import com.opsc.opsc7312poe.R
+import com.opsc.opsc7312poe.api.data.Transaction
+import com.opsc.opsc7312poe.api.local.LocalUser
+import com.opsc.opsc7312poe.api.viewmodel.TransactionViewModel
+import com.opsc.opsc7312poe.databinding.FragmentHomeBinding
+import com.opsc.opsc7312poe.ui.adapter.TransactionAdapter
+import com.opsc.opsc7312poe.ui.observer.HomeObserver
 
 
 class HomeFragment : Fragment() {
@@ -31,8 +31,9 @@ class HomeFragment : Fragment() {
 
     private lateinit var localUser: LocalUser
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(layoutInflater)
 
@@ -41,29 +42,17 @@ class HomeFragment : Fragment() {
         transactionViewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
 
         transactionAdapter = TransactionAdapter { transaction ->
-            val bundle = Bundle()
-            bundle.putString("id", transaction.id)
-            bundle.putString("title", transaction.title)
-            bundle.putDouble("amount", transaction.amount)
-            bundle.putLong("date", transaction.date)
-            bundle.putString("categoryId", transaction.categoryid)
-            bundle.putString("description", transaction.description)
-
-            findNavController().navigate(
-                R.id.action_homeFragment_to_transactionDetailsFragment, bundle
-            )
+            redirectToDetails(transaction) // Redirect to transaction details
         }
 
         binding.backButton.setOnClickListener {
-            findNavController().navigateUp()
+            activity?.supportFragmentManager?.popBackStack()
         }
 
 
-        binding.transactionRecycleView.layoutManager =
-            LinearLayoutManager(requireContext()) // Use LinearLayout for layout
+        binding.transactionRecycleView.layoutManager = LinearLayoutManager(requireContext()) // Use LinearLayout for layout
         binding.transactionRecycleView.setHasFixedSize(true) // Improve performance with fixed size
-        binding.transactionRecycleView.adapter =
-            transactionAdapter // Set the adapter to display transaction items
+        binding.transactionRecycleView.adapter = transactionAdapter // Set the adapter to display transaction items
 
 
         val currentUser = localUser.getUser()
@@ -74,11 +63,7 @@ class HomeFragment : Fragment() {
 
         } else {
             // Handle the scenario where the token is null (e.g., log an error or show a message).
-            startActivity(
-                Intent(
-                    requireContext(), MainActivity::class.java
-                )
-            ) // Restart the MainActivity
+            startActivity(Intent(requireContext(), MainActivity::class.java)) // Restart the MainActivity
         }
         return binding.root
     }
@@ -101,12 +86,10 @@ class HomeFragment : Fragment() {
                 // Update the progress dialog for successful registration
 
                 // Dismiss the dialog after 2 seconds and redirect to the login screen
-                Toast.makeText(requireContext(), "Transactions retrieved!!", Toast.LENGTH_SHORT)
-                    .show() // Show logout message
+                Toast.makeText(requireContext(), "Transactions retrieved!!", Toast.LENGTH_SHORT).show() // Show logout message
             } else {
                 // Update the progress dialog for unsuccessful registration
-                Toast.makeText(requireContext(), "something went wrong!", Toast.LENGTH_SHORT)
-                    .show() // Show logout message
+                Toast.makeText(requireContext(), "something went wrong!", Toast.LENGTH_SHORT).show() // Show logout message
 
             }
         }
@@ -121,21 +104,49 @@ class HomeFragment : Fragment() {
             if (message == "timeout" || message.contains("Unable to resolve host")) {
                 // Show a timeout dialog and attempt to reconnect
 
-                Toast.makeText(requireContext(), "Connection Timeout!", Toast.LENGTH_SHORT)
-                    .show() // Show logout message
+                Toast.makeText(requireContext(), "Connection Timeout!", Toast.LENGTH_SHORT).show() // Show logout message
                 transactionViewModel.getAllTransactions(userId)
 
             }
         }
 
-        transactionViewModel.transactionList.observe(
-            viewLifecycleOwner, HomeObserver(
-                transactionAdapter, binding.noOfTransactions, binding.totalTransactionAmount
-            )
+        transactionViewModel.transactionList.observe(viewLifecycleOwner,
+            HomeObserver(transactionAdapter, binding.noOfTransactions, binding.totalTransactionAmount)
         )
 
         // Initial call to fetch all transactions for the user
         transactionViewModel.getAllTransactions(userId)
+    }
+
+    // Function to handle navigation to the transaction details screen
+    private fun redirectToDetails(transaction: Transaction) {
+        // Create a new instance of UpdateTransactionFragment to display transaction details
+        val transactionDetailsFragment = TransactionDetailsFragment()
+        val bundle = Bundle()
+        //bundle.putParcelable("transaction", transaction) // Pass the selected transaction as an argument
+
+        bundle.putString("id", transaction.id)
+        bundle.putString("title", transaction.title)
+        bundle.putDouble("amount", transaction.amount)
+        bundle.putLong("date", transaction.date)
+        bundle.putString("categoryId", transaction.categoryid)
+        bundle.putString("description", transaction.description)
+
+        transactionDetailsFragment.arguments = bundle
+
+        // Navigate to the UpdateTransactionFragment
+        changeCurrentFragment(transactionDetailsFragment)
+    }
+    // Helper function to change the current fragment in the activity.
+    private fun changeCurrentFragment(fragment: Fragment) {
+        // This method was adapted from stackoverflow
+        // https://stackoverflow.com/questions/52318195/how-to-change-fragment-kotlin
+        // Marcos Maliki
+        // https://stackoverflow.com/users/8108169/marcos-maliki
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.frame_layout, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
 }

@@ -1,19 +1,17 @@
-package com.opsc.opsc7312.ui.fragment
+package com.opsc.opsc7312poe.ui.fragment
 
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.opsc.opsc7312.R
-import com.opsc.opsc7312.databinding.FragmentMainSettingsBinding
+import com.opsc.opsc7312poe.R
+import com.opsc.opsc7312poe.databinding.FragmentMainSettingsBinding
 
 
 class MainSettingsFragment : Fragment() {
@@ -21,29 +19,24 @@ class MainSettingsFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainSettingsBinding.inflate(layoutInflater)
+
         sharedPreferences = requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE)
 
         applySwitchStyles()
 
         // Load saved preferences from SharedPreferences to set switch states
-        binding.switchMode.isChecked =
-            sharedPreferences.getBoolean("Mode", false) // Assuming default is false for dark mode
+        binding.switchMode.isChecked = sharedPreferences.getBoolean("Mode", true)
+
 
         setupListeners()
 
+
         binding.backButton.setOnClickListener {
-            findNavController().navigateUp() // Navigate back using Navigation Component
-        }
-
-        binding.notifications.setOnClickListener {
-            findNavController().navigate(R.id.action_mainSettingsFragment_to_notificationSettingsFragment)
-        }
-
-        binding.language.setOnClickListener {
-            findNavController().navigate(R.id.action_mainSettingsFragment_to_languageFragment)
+            activity?.supportFragmentManager?.popBackStack()
         }
 
         return binding.root
@@ -62,7 +55,8 @@ class MainSettingsFragment : Fragment() {
             arrayOf(
                 intArrayOf(android.R.attr.state_checked),  // Checked state
                 intArrayOf(-android.R.attr.state_checked) // Unchecked state
-            ), intArrayOf(
+            ),
+            intArrayOf(
                 ContextCompat.getColor(requireContext(), R.color.yellow_900), // Color when checked
                 ContextCompat.getColor(requireContext(), R.color.teal_900) // Color when unchecked
             )
@@ -88,21 +82,29 @@ class MainSettingsFragment : Fragment() {
         // Ziem
 
         binding.switchMode.setOnCheckedChangeListener { _, isChecked ->
+            // Save preference for notification enabled state
             sharedPreferences.edit().putBoolean("Mode", isChecked).apply()
-            // Apply dark theme immediately
-            if (isChecked) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
+
         }
 
         binding.notifications.setOnClickListener {
-            findNavController().navigate(R.id.action_mainSettingsFragment_to_notificationSettingsFragment)
+            changeCurrentFragment(NotificationSettingsFragment())
         }
 
         binding.language.setOnClickListener {
-            findNavController().navigate(R.id.action_mainSettingsFragment_to_languageFragment)
+            changeCurrentFragment(LanguageFragment())
         }
+    }
+
+    // Function to replace the current fragment with a new one and add it to the back stack
+    private fun changeCurrentFragment(fragment: Fragment) {
+        // This method was adapted from stackoverflow
+        // https://stackoverflow.com/questions/52318195/how-to-change-fragment-kotlin
+        // Marcos Maliki
+        // https://stackoverflow.com/users/8108169/marcos-maliki
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.frame_layout, fragment) // Replace the content of the frame layout
+            .addToBackStack(null) // Add the transaction to the back stack
+            .commit() // Commit the transaction
     }
 }

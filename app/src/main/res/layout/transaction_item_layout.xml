@@ -1,34 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginVertical="10dp"
-    android:background="@drawable/transaction_item_layout_background">
+    android:background="@drawable/transaction_item_layout_background"
+    >
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <LinearLayout
             android:id="@+id/cat_img_container"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_margin="7dp"
             android:background="@drawable/category_background"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="7dp"
+            >
 
             <ImageView
-                android:id="@+id/card_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:padding="8dp"
-                android:scaleType="fitCenter"
+                android:id="@+id/card_img"
                 android:src="@drawable/baseline_calendar_today_24"
+                android:padding="8dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
                 app:tint="@color/white"
 
                 />
@@ -38,65 +42,69 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_marginStart="20dp"
+            android:orientation="vertical"
 
             android:gravity="center_vertical"
 
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="20dp"
             app:layout_constraintStart_toEndOf="@id/cat_img_container"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
 
 
             <TextView
-                android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_semibold"
+                android:id="@+id/name"
                 android:text="transaction"
-                android:textColor="@color/teal_900"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_semibold"
+                android:textColor="@color/teal_900"/>
 
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="bottom"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="bottom">
 
                 <TextView
                     android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins"
-                    android:padding="0dp"
                     android:text="2 tasks"
+                    android:textSize="14sp"
                     android:textAlignment="textEnd"
                     android:textColor="@color/blue_500"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins"
+                    android:padding="0dp"/>
             </LinearLayout>
 
 
+
         </LinearLayout>
+
 
 
         <TextView
             android:id="@+id/amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:padding="0dp"
             android:text="R4000 "
+            android:textSize="13sp"
             android:textAlignment="textEnd"
             android:textColor="@color/teal_900"
-            android:textSize="13sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:padding="0dp"
+            android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 </LinearLayout>
