@@ -10,7 +10,7 @@ import com.opsc.opsc7312poe.api.local.db.databasehelper.TransactionDatabaseHelpe
 import com.opsc.opsc7312poe.api.viewmodel.TransactionViewModel
 
 class TransactionSync (appContext: Context, workerParams: WorkerParameters) : CoroutineWorker(appContext, workerParams) {
-    private var notificationHandler: NotificationManager = NotificationManager(applicationContext)
+    //private var notificationHandler: NotificationManager = NotificationManager(appContext)
 
     override suspend fun doWork(): Result {
         // Helper to access transaction-related database operations
@@ -76,16 +76,16 @@ class TransactionSync (appContext: Context, workerParams: WorkerParameters) : Co
                     }
                 }
                 // Show success notification to the user
-                notificationHandler.syncSuccessfulNotification()
+                //notificationHandler.syncSuccessfulNotification()
                 Result.success()  // Mark as successful if all transactions synced
             } else {
                 // Show failure notification if remote sync fails
-                notificationHandler.syncFailNotification()
+               // notificationHandler.syncFailNotification()
                 Result.failure()
             }
         } catch (e: Exception) {
             Log.e("syncRemoteToLocal", "Error syncing categories", e)
-            notificationHandler.syncFailNotification()
+            //notificationHandler.syncFailNotification()
             Result.failure()
         }
     }

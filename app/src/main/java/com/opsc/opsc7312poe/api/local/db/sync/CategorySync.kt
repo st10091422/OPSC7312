@@ -13,7 +13,7 @@ import com.opsc.opsc7312poe.api.data.Ids
 import com.opsc.opsc7312poe.api.local.db.databasehelper.TransactionDatabaseHelper
 
 class CategorySync(appContext: Context, workerParams: WorkerParameters) : CoroutineWorker(appContext, workerParams) {
-    private var notificationHandler: NotificationManager = NotificationManager(applicationContext)
+    //private var notificationHandler: NotificationManager = NotificationManager(appContext)
 
     override suspend fun doWork(): Result {
         val categoryDbHelper = CategoryDatabaseHelper(applicationContext)
@@ -67,16 +67,16 @@ class CategorySync(appContext: Context, workerParams: WorkerParameters) : Corout
                         // Optionally update the local goal if needed
                     }
                 }
-                notificationHandler.syncSuccessfulNotification()
+                //notificationHandler.syncSuccessfulNotification()
                 Result.success()  // Mark as successful if all transactions synced
             } else {
                 // Show failure notification if remote sync fails
-                notificationHandler.syncFailNotification()
+                //notificationHandler.syncFailNotification()
                 Result.failure()
             }
         } catch (e: Exception) {
             Log.e("syncRemoteToLocal", "Error syncing categories", e)
-            notificationHandler.syncFailNotification()
+            //notificationHandler.syncFailNotification()
             Result.failure()
         }
     }

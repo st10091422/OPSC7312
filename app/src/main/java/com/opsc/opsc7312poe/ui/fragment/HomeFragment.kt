@@ -14,6 +14,8 @@ import com.opsc.opsc7312poe.MainActivity
 import com.opsc.opsc7312poe.R
 import com.opsc.opsc7312poe.api.data.Transaction
 import com.opsc.opsc7312poe.api.local.LocalUser
+import com.opsc.opsc7312poe.api.local.db.databasehelper.CategoryDatabaseHelper
+import com.opsc.opsc7312poe.api.local.db.databasehelper.TransactionDatabaseHelper
 import com.opsc.opsc7312poe.api.viewmodel.TransactionViewModel
 import com.opsc.opsc7312poe.databinding.FragmentHomeBinding
 import com.opsc.opsc7312poe.ui.adapter.TransactionAdapter
@@ -30,6 +32,10 @@ class HomeFragment : Fragment() {
     private lateinit var transactionViewModel: TransactionViewModel
 
     private lateinit var localUser: LocalUser
+
+    private lateinit var transactionDatabaseHelper: TransactionDatabaseHelper
+    private lateinit var cateDatabaseHelper: CategoryDatabaseHelper
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,6 +55,10 @@ class HomeFragment : Fragment() {
             activity?.supportFragmentManager?.popBackStack()
         }
 
+        transactionDatabaseHelper = TransactionDatabaseHelper(requireContext())
+
+        cateDatabaseHelper = CategoryDatabaseHelper(requireContext())
+
 
         binding.transactionRecycleView.layoutManager = LinearLayoutManager(requireContext()) // Use LinearLayout for layout
         binding.transactionRecycleView.setHasFixedSize(true) // Improve performance with fixed size
@@ -59,15 +69,44 @@ class HomeFragment : Fragment() {
 
         // If the token is valid, observe the category data through the ViewModel.
         if (currentUser != null) {
-            getAllTransaction(currentUser.id)
+            getTransactions(currentUser.id)
 
         } else {
             // Handle the scenario where the token is null (e.g., log an error or show a message).
             startActivity(Intent(requireContext(), MainActivity::class.java)) // Restart the MainActivity
         }
+
         return binding.root
     }
 
+    private fun getTransactions(userId: String){
+
+        try {
+            val transactions = transactionDatabaseHelper.getAllTransactions(userId)
+
+            for (transaction in transactions){
+                transaction.category = cateDatabaseHelper.getCategory(transaction.categoryid)!!
+            }
+
+            binding.noOfTransactions.setText("${transactions.size} transactions")
+
+            binding.totalTransactionAmount.setText("R${totalTransaction(transactions)}")
+
+            transactionAdapter.updateTransactions(transactions)
+        } catch (e: Exception) {
+            Log.e("DatabaseError", "Error inserting transaction", e)
+        }
+    }
+
+    private fun totalTransaction(value: List<Transaction>): Double{
+        var total = 0.0
+
+        for (transaction in value){
+            total += transaction.amount
+        }
+
+        return total
+    }
     // Method to observe the ViewModel for transaction-related data and status updates
     private fun getAllTransaction(userId: String) {
         // Check for timeout or inability to resolve host

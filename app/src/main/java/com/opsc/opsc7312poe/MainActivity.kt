@@ -14,6 +14,7 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.opsc.opsc7312poe.api.local.ConnectivityReceiver
 import com.opsc.opsc7312poe.api.local.LocalUser
+import com.opsc.opsc7312poe.api.local.NotificationManager
 import com.opsc.opsc7312poe.api.local.db.sync.CategorySync
 import com.opsc.opsc7312poe.api.local.db.sync.TransactionSync
 import com.opsc.opsc7312poe.databinding.ActivityMainBinding
@@ -36,10 +37,11 @@ class MainActivity : AppCompatActivity() {
         localUser = LocalUser.getInstance(this)
 
         setupBottomNavigation()  // Initialize bottom navigation
-
+        var notificationHandler: NotificationManager = NotificationManager(this)
         val connectivityReceiver = ConnectivityReceiver {
             enqueueCategories()
             enqueueTransactions()
+            notificationHandler.syncSuccessfulNotification()
         }
 
         this.registerReceiver(connectivityReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))

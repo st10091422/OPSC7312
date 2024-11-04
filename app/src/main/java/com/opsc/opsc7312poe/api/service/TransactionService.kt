@@ -31,6 +31,6 @@ interface TransactionService {
     @POST("transaction-all/sync")
     fun syncTransactions(@Body transactions: SyncData): Call<SyncIds>
 
-    @GET("transaction-all/{id}")
+    @POST("transaction-all/{id}")
     fun getAllTransactions( @Path("id") userId: String): Call<List<Transaction>>
 }
