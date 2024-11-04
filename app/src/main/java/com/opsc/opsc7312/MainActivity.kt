@@ -2,26 +2,20 @@ package com.opsc.opsc7312
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.Fragment
-import com.google.android.material.navigation.NavigationView
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.opsc.opsc7312.api.local.LocalUser
 import com.opsc.opsc7312.databinding.ActivityMainBinding
 import com.opsc.opsc7312.ui.activity.LoginActivity
-import com.opsc.opsc7312.ui.fragment.CategoriesFragment
-import com.opsc.opsc7312.ui.fragment.HomeFragment
-import com.opsc.opsc7312.ui.fragment.SettingsFragment
-import com.opsc.opsc7312.ui.fragment.TransactionsFragment
+import com.opsc.opsc7312.ui.helper.BiometricAuthHelper
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-
     private lateinit var localUser: LocalUser
+    private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -29,64 +23,50 @@ class MainActivity : AppCompatActivity() {
 
         localUser = LocalUser.getInstance(this)
 
-        if (isLoggedIn()) {
-            setupBottomNavigation()  // Initialize bottom navigation
-        } else {
-            navigateToLogin()      // Redirect to welcome screen
-        }
-    }
-
-
-
-    // Sets up bottom navigation for fragment switching
-    private fun setupBottomNavigation() {
-        // Start with the HomeFragment as the initial fragment
-        changeCurrentFragment(HomeFragment())
-
-        // Set the listener for bottom navigation item selections
-        binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.home -> changeCurrentFragment(HomeFragment())
-                R.id.transactions -> changeCurrentFragment(TransactionsFragment())
-                R.id.categories -> changeCurrentFragment(CategoriesFragment())
-                R.id.settings -> changeCurrentFragment(SettingsFragment())
-
+        if (localUser.isTokenExpired(localUser.getTokenExpirationTime())) {
+            val biometricAuthHelper = BiometricAuthHelper(this)
+            biometricAuthHelper.authenticate { success ->
+                if (success) {
+                    // Token expired, but fingerprint authentication successful
+                    // Extend token expiration or re-authenticate with backend
+                    // For now, we'll just extend the token expiration
+                    val newExpirationTime =
+                        System.currentTimeMillis() + (24 * 60 * 60 * 1000) // Extend by 24 hours
+                    val currentUser = localUser.getUser()
+                    if (currentUser != null) {
+                        localUser.saveUser(currentUser, newExpirationTime)
+                    }
+                    setupBottomNavigation()
+                } else {
+                    // Token expired and fingerprint authentication failed
+                    navigateToLogin()
+                }
             }
-            true
+        } else {
+            // Token is valid, proceed with normal activity setup
+            setupBottomNavigation()
         }
     }
 
-    // Changes the current displayed fragment and updates the toolbar title
-    private fun changeCurrentFragment(fragment: Fragment) {
-        // This method was adapted from stackoverflow
-        // https://stackoverflow.com/questions/52318195/how-to-change-fragment-kotlin
-        // Marcos Maliki
-        // https://stackoverflow.com/users/8108169/marcos-maliki
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.frame_layout, fragment) // Replace the current fragment
-            commit() // Commit the transaction
-        }
+    private fun setupBottomNavigation() {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
+        setupWithNavController(binding.bottomNavigation, navController)
     }
 
-    // Navigates to the authentication screens if the user is not logged in
     private fun navigateToLogin() {
-        startActivity(Intent(this, LoginActivity::class.java)) // Start WelcomeActivity
-        finish() // Finish the current activity
-    }
-
-    // Checks if the user is currently logged in
-    private fun isLoggedIn(): Boolean {
-        val user = localUser.getUser() // Retrieve the authentication token
-        val expirationTime = localUser.getTokenExpirationTime() // Get the token expiration time
-        return user != null && !localUser.isTokenExpired(expirationTime) // Check if the token is valid
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
     }
 
     override fun onBackPressed() {
-        // Check if there are any fragments in the back stack
         if (supportFragmentManager.backStackEntryCount > 0) {
-            supportFragmentManager.popBackStack() // Go back to the previous fragment
+            supportFragmentManager.popBackStack()
         } else {
-            super.onBackPressed() // Default behavior to exit the app
+            super.onBackPressed()
         }
     }
+
+
 }

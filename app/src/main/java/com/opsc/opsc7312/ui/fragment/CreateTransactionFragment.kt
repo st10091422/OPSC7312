@@ -3,6 +3,7 @@ package com.opsc.opsc7312.ui.fragment
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,8 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.navigateUp
 import com.opsc.opsc7312.MainActivity
 import com.opsc.opsc7312.R
 import com.opsc.opsc7312.api.data.Category
@@ -40,31 +43,33 @@ class CreateTransactionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCreateTransactionBinding.inflate(layoutInflater)
-
-        // Get the CategoryController ViewModel for interacting with category data.
         categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
         transactionViewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
-
         categories = mutableListOf()
         localUser = LocalUser.getInstance(requireContext())
 
         binding.backButton.setOnClickListener {
-            activity?.supportFragmentManager?.popBackStack()
+            findNavController().navigateUp() // Navigate back using Navigation Component
         }
 
-        // Set up the spinner's item selection listener
         binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                // Retrieve the selected category using the position index
-                selectedCategoryId = categories[position].id // Get the ID directly from the list
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                // Add a null check for the view parameter
+                view?.let {
+                    // Access view elements here, e.g., view.findViewById<TextView>(R.id.textView).text
+                    selectedCategoryId = categories[position].id
+                } ?: run {
+                    // Handle the case where the view is null (e.g., log an error)
+                    Log.e("CreateTransactionFragment", "Spinner item view is null")
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-                selectedCategoryId = null // Reset if nothing is selected
+                selectedCategoryId = null
             }
         }
 
-        binding.save.setOnClickListener{
+        binding.save.setOnClickListener {
             addData()
         }
 
@@ -73,13 +78,10 @@ class CreateTransactionFragment : Fragment() {
         }
 
         val currentUser = localUser.getUser()
-
-        // If the token is valid, observe the category data through the ViewModel.
         if (currentUser != null) {
             getAllCategories(currentUser.id)
         } else {
-            // Handle the scenario where the token is null (e.g., log an error or show a message).
-            startActivity(Intent(requireContext(), MainActivity::class.java)) // Restart the MainActivity
+            startActivity(Intent(requireContext(), MainActivity::class.java))
         }
 
         return binding.root
@@ -191,7 +193,6 @@ class CreateTransactionFragment : Fragment() {
 
                 // Dismiss the dialog after 2 seconds and redirect to the login screen
                 Toast.makeText(requireContext(), "Transaction created!", Toast.LENGTH_SHORT).show() // Show logout message
-                changeCurrentFragment(TransactionsFragment())
 
             } else {
                 // Update the progress dialog for unsuccessful registration
@@ -295,18 +296,6 @@ class CreateTransactionFragment : Fragment() {
             // Handle the scenario where the token is null (e.g., log an error or show a message).
             startActivity(Intent(requireContext(), MainActivity::class.java)) // Restart the MainActivity
         }
-    }
-
-    // Helper function to change the current fragment in the activity.
-    private fun changeCurrentFragment(fragment: Fragment) {
-        // This method was adapted from stackoverflow
-        // https://stackoverflow.com/questions/52318195/how-to-change-fragment-kotlin
-        // Marcos Maliki
-        // https://stackoverflow.com/users/8108169/marcos-maliki
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.frame_layout, fragment)
-            .addToBackStack(null)
-            .commit()
     }
 
     fun longToDate(timestamp: Long): String {

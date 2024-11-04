@@ -78,7 +78,7 @@ class ProfileFragment : Fragment() {
         }
 
         if(username.isEmpty()){
-            Toast.makeText(requireContext(), "Enter a password", Toast.LENGTH_SHORT).show() // Show logout message
+            Toast.makeText(requireContext(), "Enter a username", Toast.LENGTH_SHORT).show() // Show logout message
             return
         }
 
